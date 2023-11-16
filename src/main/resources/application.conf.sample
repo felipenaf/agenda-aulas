@@ -1,0 +1,7 @@
+ktor {
+    development = true
+    database {
+        driverClassName = "org.h2.Driver"
+        jdbcURL = "jdbc:h2:file:./build/db"
+    }
+}
