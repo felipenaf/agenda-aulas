@@ -16,7 +16,9 @@ fun main() {
 }
 
 fun Application.module() {
-    DatabaseFactory.init()
+//    todo: debug environment, it doenst work
+    println(environment)
+    DatabaseFactory.init(environment)
     configureSerialization()
     configureRouting()
 }

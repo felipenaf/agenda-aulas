@@ -4,6 +4,7 @@ import com.example.dao.DAOAluno
 import com.example.dao.database.DatabaseFactory.dbQuery
 import com.example.model.Aluno
 import com.example.model.Alunos
+import com.example.utils.DatetimeUtil
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.selectAll
@@ -14,6 +15,8 @@ class DAOAlunoImpl: DAOAluno {
         id = row[Alunos.id],
         nome = row[Alunos.nome],
         idade = row[Alunos.idade],
+        createdAt = row[Alunos.createdAt],
+        updatedAt = row[Alunos.updatedAt]
     )
     override suspend fun obterTodos(): List<Aluno> = dbQuery {
         Alunos.selectAll().map(::resultRowToObject)
@@ -24,6 +27,7 @@ class DAOAlunoImpl: DAOAluno {
     }
 
     override suspend fun inserir(nome: String, idade: Int): Aluno? = dbQuery {
+
         val insertStatement = Alunos.insert {
             it[Alunos.nome] = nome
             it[Alunos.idade] = idade
@@ -33,6 +37,8 @@ class DAOAlunoImpl: DAOAluno {
     }
 
     override suspend fun editar(id: Int, nome: String, idade: Int): Boolean {
+        val now: Long = DatetimeUtil().currentDatetimeToLong()
+
         TODO("Not yet implemented")
     }
 
